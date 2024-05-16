@@ -1,4 +1,4 @@
-package dgkdxf
+package dgmedia
 
 import (
 	"encoding/binary"
