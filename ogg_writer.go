@@ -10,18 +10,16 @@ import (
 
 const (
 	pageHeaderTypeContinuationOfStream = 0x00
-	pageHeaderTypeBeginningOfStream    = 0x02
 	pageHeaderTypeEndOfStream          = 0x04
 	defaultPreSkip                     = 3840 // 3840 recommended in the RFC
-	idPageSignature                    = "OpusHead"
 	commentPageSignature               = "OpusTags"
-	pageHeaderSignature                = "OggS"
+	pageHeaderSize                     = 27
 )
 
 var (
 	errFileNotOpened        = errors.New("file not opened")
 	VendorName              = "star"
-	VendorLength     uint32 = 5
+	VendorLength     uint32 = 4
 )
 
 // OggWriter is used to take RTP packets and write them to an OGG on disk
@@ -136,10 +134,6 @@ func (i *OggWriter) writeHeaders() error {
 
 	return nil
 }
-
-const (
-	pageHeaderSize = 27
-)
 
 func (i *OggWriter) createPage(payload []uint8, headerType uint8, granulePos uint64, pageIndex uint32) []byte {
 	i.lastPayloadSize = len(payload)
